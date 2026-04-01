@@ -11,6 +11,7 @@ import utill.DataConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -99,10 +100,10 @@ public class OrderService {
 
     public static void updateOrder(Scanner sc) {
 
-        System.out.println("Nhập mã đơn:");
+        System.out.println(ColerUtil.PURPLE+"Nhập mã đơn:");
         int orderId = Integer.parseInt(sc.nextLine());
 
-        System.out.println("Nhập trạng thái (SHIPPING, COMPLETED, CANCELLED):");
+        System.out.println(ColerUtil.BLUE+"Nhập trạng thái ("+ColerUtil.YELLOW+"SHIPPING,"+ColerUtil.GREEN+" COMPLETED,"+ColerUtil.ORANGE+" CANCELLED):");
         String status = sc.nextLine().toUpperCase();
 
         if (!status.matches("SHIPPING|COMPLETED|CANCELLED")) {
@@ -113,7 +114,11 @@ public class OrderService {
         OrderDAO.updateOrderStatus(orderId, status);
     }
 
-    public static void main(String[] args) {
-        OrderService.updateOrder(new Scanner(System.in));
+    public static void showBestSeller(){
+        int month = LocalDate.now().getMonthValue();
+        int year = LocalDate.now().getYear();
+        System.out.println(ColerUtil.PURPLE+"═══════════════════ "+ColerUtil.BLUE+"DANH SÁCH TOP 5 SẢN PHẨM BÁN CHẠY TRONG THÁNG "+ month+"/"+year+ColerUtil.PURPLE+" ═══════════════════════════ ");
+        OrderDAO.selectBestSeller();
+
     }
 }

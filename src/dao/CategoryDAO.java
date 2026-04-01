@@ -216,7 +216,7 @@ public class CategoryDAO {
             ps.setInt(1, id);
             int rows = ps.executeUpdate();
             if(rows == 0){
-                System.out.println(ColerUtil.RED+"cập nhật chưa thành công");
+                System.out.println(ColerUtil.RED+"cập nhật chưa thành công. Đã thực hiện thay đổi trạng thái!!!");
             }else {
                 System.out.println(ColerUtil.GREEN+"cập nhật thành công trong databasse");
             }

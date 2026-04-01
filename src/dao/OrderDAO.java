@@ -165,6 +165,8 @@ public class OrderDAO {
             if (!rs.next()) {
                 System.out.println("Không có đơn hàng nào!");
             } else {
+                String statusColor;
+
 
                 System.out.println(ColerUtil.PURPLE + "╔════════════════════════════════════════════════════════════════════════════════════╗");
 
@@ -173,13 +175,35 @@ public class OrderDAO {
 
                 System.out.println(ColerUtil.PURPLE + "╠════════════════════════════════════════════════════════════════════════════════════╣");
 
+
+
                 do {
-                    System.out.printf(ColerUtil.BLUE + "║ %-6d | %-20s | %-12.2f | %-12s | %-20s ║\n",
-                            rs.getInt("order_id"),
-                            rs.getString("user_name"),
-                            rs.getDouble("total_amount"),
-                            rs.getString("status"),
-                            rs.getString("created_at"));
+                    int order_id= rs.getInt("order_id");
+                    String user_name=  rs.getString("user_name");
+                    double total_amount =rs.getDouble("total_amount");
+                    String status =     rs.getString("status");
+                    String create =  rs.getString("created_at");
+
+                    switch (status) {
+                        case "SHIPPING":
+                            statusColor = ColerUtil.YELLOW;
+                            break;
+                        case "COMPLETED":
+                            statusColor = ColerUtil.GREEN;
+                            break;
+                        case "CANCELLED":
+                            statusColor = ColerUtil.ORANGE;
+                            break;
+                        default:
+                            statusColor = ColerUtil.BLUE;
+                    }
+
+                    System.out.printf(ColerUtil.BLUE + "║ %-6d | %-20s | %-12.2f | "+statusColor+"%-12s"+ColerUtil.BLUE+" | %-20s ║\n",
+                            order_id,
+                            user_name,
+                            total_amount,
+                            status,
+                            create);
 
                 } while (rs.next());
 
@@ -210,6 +234,54 @@ public class OrderDAO {
 
         } catch (SQLException e) {
             System.out.println("Lỗi cập nhật trạng thái!");
+        }
+    }
+
+    public static void selectBestSeller(){
+        String sql = """
+                select
+                od.id, p.name, SUM(od.quantity) AS total_sold
+                from orderdetails od
+                join orders o on  o.id = od.order_id
+                join products p on p.id =od.product_id
+                where
+                	Month(o.created_at) =month(now())and
+                    year(o.created_at) =year(now()) and
+                    o.status ='completed'
+                group by od.id, p.name
+                ORDER BY total_sold DESC
+                LIMIT 5;
+                """;
+        try(Connection connection =DataConnection.openConnection()){
+            PreparedStatement preparedStatement =connection.prepareStatement(sql);
+           ResultSet resultSet= preparedStatement.executeQuery();
+            if (resultSet.next()){
+                do {
+                    System.out.println(ColerUtil.PURPLE + "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗");
+                    System.out.printf(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "%-20s | %-50s | %-20s " + ColerUtil.PURPLE + "║\n",
+                            "ID", "Tên sản phẩm", "Đã bán");
+                    System.out.println(ColerUtil.PURPLE + "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣");
+
+                    do {
+                        int id = resultSet.getInt("id");
+                        String name = resultSet.getString("name");
+                        int total = resultSet.getInt("total_sold");
+
+                        System.out.printf(ColerUtil.BLUE + "║ %-20d | %-50s | %-20d " + ColerUtil.BLUE + "║\n",
+                                id, name, total);
+
+                    } while (resultSet.next());
+
+                    System.out.println(ColerUtil.PURPLE + "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝");
+
+                }while (resultSet.next());
+            }else {
+                System.out.println(ColerUtil.RED+"hiện tháng này chưa bán đước sản phâm nào!!!"
+                );
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

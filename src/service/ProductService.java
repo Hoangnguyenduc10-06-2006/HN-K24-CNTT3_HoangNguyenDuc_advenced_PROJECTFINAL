@@ -598,7 +598,7 @@ public class ProductService {
         do {
             check=true;
             System.out.println(ColerUtil.BLUE+"mời bạn nhập tên hãng sản phẩm muốn tìm kiếm");
-            nameInput = sc.nextLine();
+            nameInput = sc.nextLine().trim();
 
             if (nameInput.trim().isEmpty()) {
                 System.out.println(ColerUtil.RED+"Không được bỏ trống!");

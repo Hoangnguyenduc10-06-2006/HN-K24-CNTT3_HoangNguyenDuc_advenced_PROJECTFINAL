@@ -1,5 +1,6 @@
 package presentation;
 
+import service.OrderService;
 import service.ProductService;
 import utill.ColerUtil;
 
@@ -18,7 +19,7 @@ public class MenuAdmin {
             System.out.println(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "2. Quản lý sản phẩm              " + ColerUtil.PURPLE + "║");
             System.out.println(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "3. Quản lý đơn hàng              " + ColerUtil.PURPLE + "║");
             System.out.println(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "4. Quản lý khách hàng            " + ColerUtil.PURPLE + "║");
-            System.out.println(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "5. Báo cáo & sản phẩm bán chạy   " + ColerUtil.PURPLE + "║");
+            System.out.println(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "5. Báo cáo 5 sản phẩm bán chạy   " + ColerUtil.PURPLE + "║");
             System.out.println(ColerUtil.PURPLE + "║ " + ColerUtil.BLUE + "6. Quay lại menu đăng nhập       " + ColerUtil.PURPLE + "║");
 
             System.out.println(ColerUtil.PURPLE + "╚══════════════════════════════════╝");
@@ -36,11 +37,12 @@ public class MenuAdmin {
                     MenuOrder.main();
                     break;
                 case 4:
+                    MenuManagerCustomer.main();
                     break;
                 case 5:
+                    OrderService.showBestSeller();
                     break;
                 case 6:
-
                     break;
                 default:
                     System.out.println("lựa chọn không hợp lệ");

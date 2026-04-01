@@ -42,7 +42,7 @@ public class MenuCategory {
                     CategoryService.deleteCategory(sc);
                     break;
                 case 5:
-                    System.out.println("thoát chương trình thành công");
+                    System.out.println(ColerUtil.GREEN+"Quay Trở lại MENU ADMIN thành công");
                     break;
                 default:
                     System.out.println("lựa chọn không hợp lệ");

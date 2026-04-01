@@ -19,10 +19,10 @@ public class MenuManagerCustomer {
             try {
                 do {
                     System.out.println(ColerUtil.PURPLE + "╔═══════════════════════════════════════╗");
-                    System.out.println("║  "+ColerUtil.BLUE+"        QUẢN LÝ KHÁCH HÀNG  " +ColerUtil.PURPLE+"           ║");
+                    System.out.println("║  "+ColerUtil.BLUE+"        QUẢN LÝ KHÁCH HÀNG  " +ColerUtil.PURPLE+"         ║");
                     System.out.println("╠═══════════════════════════════════════╣");
-                    System.out.println("║ "+ColerUtil.BLUE+"1. Hiển thị toàn bộ đơn của hệ thống  "+ColerUtil.PURPLE+"║");
-                    System.out.println("║ "+ColerUtil.BLUE+"2. cập nhật trạng thái đơn hàng "+ColerUtil.PURPLE+"      ║");
+                    System.out.println("║ "+ColerUtil.BLUE+"1. Hiển thị toàn bộ đơn của KHÁCH HÀNG"+ColerUtil.PURPLE+"║");
+                    System.out.println("║ "+ColerUtil.BLUE+"2. cập nhật trạng thái KHÁCH HÀNG "+ColerUtil.PURPLE+"    ║");
                     System.out.println("║ "+ColerUtil.BLUE+"3. Thoát   "+ColerUtil.PURPLE+"                           ║");
                     System.out.println("╚═══════════════════════════════════════╝" );
                     System.out.print(ColerUtil.YELLOW + " Lựa chọn của bạn: " );

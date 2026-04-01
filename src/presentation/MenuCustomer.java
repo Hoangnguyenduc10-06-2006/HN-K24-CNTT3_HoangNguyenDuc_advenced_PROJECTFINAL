@@ -49,6 +49,7 @@ public class MenuCustomer {
                     break;
                 default:
                     System.out.println("lựa chọn không hợp lệ");
+                    break;
             }
         }while (choice != 7);
 
